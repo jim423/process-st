@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://fast.wistia.com/assets/external/uploader.css" />
+	</head>
+
+	<body ng-app="myApp" ng-controller="mainCtrl">
+
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 title">
+					<h2>Please Select Your Video File</h2>
+				</div>
+			</div>
+			<div class="row row-content">
+				<div class="col-sm-12 btn-upload">
+				    <input id="fileupload" type="file" name="file">
+				    <button class="btn btn-info" type="button" ng-click="submit()">
+					    <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
+					    Upload Video
+				    </button>
+				</div>
+			</div>
+			<div class="row row-content">
+				<div class="col-sm-12">
+					<div id="progress">
+					    <div class="bar" style="width: 0%;"></div>
+					</div>
+				</div>
+			</div>
+			<div class="row row-content">
+				<div class="col-sm-12" ng-show="showVideo">
+					<span class="wistia_embed popover=true popoverAnimateThumbnail=true">&nbsp;</span>
+				</div>
+				<div class="video-none col-sm-12" ng-show="!showVideo">
+					<h1>Uploaded Video</h1>
+				</div>
+			</div>
+
+		</div>
+
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+		<!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
+		<script src="js/jquery.ui.widget.js"></script>
+		<!-- The Load Image plugin is included for the preview images and image resizing functionality -->
+		<script src="https://blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
+		<!-- The Canvas to Blob plugin is included for image resizing functionality -->
+		<script src="https://blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
+		<!-- Bootstrap JS is not required, but included for the responsive demo navigation -->
+		<script src="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+		<!-- blueimp Gallery script -->
+		<script src="https://blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
+		<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
+		<script src="js/jquery.iframe-transport.js"></script>
+		<!-- The basic File Upload plugin -->
+		<script src="js/jquery.fileupload.js"></script>
+		<!-- The File Upload processing plugin -->
+		<script src="js/jquery.fileupload-process.js"></script>
+		<!-- The File Upload image preview & resize plugin -->
+		<script src="js/jquery.fileupload-image.js"></script>
+		<!-- The File Upload audio preview plugin -->
+		<script src="js/jquery.fileupload-audio.js"></script>
+		<!-- The File Upload video preview plugin -->
+		<script src="js/jquery.fileupload-video.js"></script>
+		<!-- The File Upload validation plugin -->
+		<script src="js/jquery.fileupload-validate.js"></script>
+		<!-- The File Upload Angular JS module -->
+		<script src="js/jquery.fileupload-angular.js"></script>
+
+		<!-- Bootstrap -->
+		<script src="js/bootstrap.min.js"></script>
+
+		<!-- Wistia -->
+		<script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
+
+		<script>
+			var app = angular.module('myApp', ['blueimp.fileupload']);
+			app.controller('mainCtrl', function($scope, $http) {
+				
+				$scope.showVideo = false;
+
+				$scope.submit = function() {
+					$('#progress .bar').css(
+			            'width',
+			            0 + '%'
+			        );
+
+					$scope.$apply(function(){
+			            $scope.showVideo = true;
+			        });
+
+					$('input').trigger('click');
+				};
+
+				$('#fileupload').fileupload({
+					url: 'https://upload.wistia.com?access_token='+
+					'88003df5a4da31fd367ae41feba9445d4df24ccee41200abb536284a7957b135&project_id=5sj05sct73',
+					done: function(e, data) {
+						var video_id = data.result.hashed_id;
+						var script = "<script src='https://fast.wistia.com/embed/medias/" + video_id
+						+ ".jsonp' async><\/script>";
+						$('body').append(script);
+						$('span.wistia_embed').addClass('wistia_async_' + video_id);
+						console.log('finished uploading');
+						$scope.$apply(function(){
+				            $scope.showVideo = true;
+				        });
+					},
+					progress: function (e, data) {
+				        var progress = parseInt(data.loaded / data.total * 100, 10);
+				        $('#progress .bar').css(
+				            'width',
+				            progress + '%'
+				        );
+				        $('#progress .bar').html(progress + '%');
+				    },
+				    error: function (e, data) {
+				    	alert(JSON.parse(e.responseText).error);
+				    }
+				});	
+			
+				
+			});
+		</script>
+		
+	</body>
+
+</html>

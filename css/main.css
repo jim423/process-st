@@ -1,0 +1,63 @@
+.container {
+	margin: 100px auto;
+	width: 400px;
+	height: 550px;
+	border-radius: 2px;
+	padding: 20px;
+	box-shadow: 1px 0px 25px 0px #888888;
+}
+
+#fileupload {
+	display: none;
+}
+
+.title {
+	text-align: center;
+}
+
+.btn-upload {
+	text-align: center;
+}
+
+.btn-upload > button {
+	width: 30%;
+	height: 50px;
+}
+
+.row-content {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.bar {
+    height: 30px;
+    background: lightblue;
+    border-radius: 2px;
+    color: white;
+    text-align: center;
+    font-size: 20px;
+}
+
+.row-content {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.wistia_embed {
+	width: 60%;
+	height: 300px;
+	display:inline-block;
+}
+
+.video-none {
+	color: lightgrey;
+	width: 60%;
+	height: 300px;
+	border: 1px solid;
+}
+
+.video-none > h1 {
+	text-align: center;
+	padding-top: 100px;
+}
+
