@@ -3,7 +3,7 @@
 	<head>
 		<link rel="stylesheet" type="text/css" href="css/main.css">
 		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<link rel="stylesheet" href="https://fast.wistia.com/assets/external/uploader.css" />
+		<link data-require="jasmine" data-semver="2.0.0" rel="stylesheet" href="https://cdn.jsdelivr.net/jasmine/2.0.0/jasmine.css" />
 	</head>
 
 	<body ng-app="myApp" ng-controller="mainCtrl">
@@ -16,7 +16,7 @@
 			</div>
 			<div class="row row-content">
 				<div class="col-sm-12 btn-upload">
-				    <input id="fileupload" type="file" name="file">
+				    <input id="fileupload" type="file" name="file" accept="video/*">
 				    <button class="btn btn-info" type="button" ng-click="submit()">
 					    <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
 					    Upload Video
@@ -24,22 +24,32 @@
 				</div>
 			</div>
 			<div class="row row-content">
-				<div class="col-sm-12">
+				<div class="col-sm-3">
+				</div>
+				<div class="col-sm-6">
 					<div id="progress">
 					    <div class="bar" style="width: 0%;"></div>
 					</div>
 				</div>
+				<div class="col-sm-3">
+				</div>
 			</div>
 			<div class="row row-content">
-				<div class="col-sm-12" ng-show="showVideo">
+				<div class="col-sm-3">
+				</div>
+				<div class="col-sm-6" ng-show="showVideo">
 					<span class="wistia_embed popover=true popoverAnimateThumbnail=true">&nbsp;</span>
 				</div>
-				<div class="video-none col-sm-12" ng-show="!showVideo">
+				<div class="video-none col-sm-6" ng-show="!showVideo">
 					<h1>Uploaded Video</h1>
+				</div>
+				<div class="col-sm-3">
 				</div>
 			</div>
 
 		</div>
+
+		<div id="HTMLReporter" class="jasmine_reporter"></div>
 
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -71,61 +81,26 @@
 		<!-- The File Upload Angular JS module -->
 		<script src="js/jquery.fileupload-angular.js"></script>
 
-		<!-- Bootstrap -->
-		<script src="js/bootstrap.min.js"></script>
-
 		<!-- Wistia -->
 		<script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
 
-		<script>
-			var app = angular.module('myApp', ['blueimp.fileupload']);
-			app.controller('mainCtrl', function($scope, $http) {
-				
-				$scope.showVideo = false;
+		<!-- Jasmine -->
+<!-- 	    <script data-require="jasmine" data-semver="2.0.0" src="https://cdn.jsdelivr.net/jasmine/2.0.0/jasmine.js"></script>
+	    <script data-require="jasmine" data-semver="2.0.0" src="https://cdn.jsdelivr.net/jasmine/2.0.0/jasmine-html.js"></script>
+	    <script data-require="jasmine@*" data-semver="2.0.0" src="https://cdn.jsdelivr.net/jasmine/2.0.0/boot.js"></script>
+	    <script data-require="jasmine@*" data-semver="2.0.0" src="https://cdn.jsdelivr.net/jasmine.jquery/2.0.3/jasmine-jquery.min.js"></script>
 
-				$scope.submit = function() {
-					$('#progress .bar').css(
-			            'width',
-			            0 + '%'
-			        );
+	    <script data-require="angular-mocks" data-semver="1.3.5" src="https://code.angularjs.org/1.3.5/angular-mocks.js"></script> -->
 
-					$scope.$apply(function(){
-			            $scope.showVideo = true;
-			        });
+		<!-- Bootstrap -->
+		<script src="js/bootstrap.min.js"></script>
 
-					$('input').trigger('click');
-				};
+		<!-- Tests -->
+		<!-- <script src="js/jasmineBootstrap.js"></script> -->
 
-				$('#fileupload').fileupload({
-					url: 'https://upload.wistia.com?access_token='+
-					'88003df5a4da31fd367ae41feba9445d4df24ccee41200abb536284a7957b135&project_id=5sj05sct73',
-					done: function(e, data) {
-						var video_id = data.result.hashed_id;
-						var script = "<script src='https://fast.wistia.com/embed/medias/" + video_id
-						+ ".jsonp' async><\/script>";
-						$('body').append(script);
-						$('span.wistia_embed').addClass('wistia_async_' + video_id);
-						console.log('finished uploading');
-						$scope.$apply(function(){
-				            $scope.showVideo = true;
-				        });
-					},
-					progress: function (e, data) {
-				        var progress = parseInt(data.loaded / data.total * 100, 10);
-				        $('#progress .bar').css(
-				            'width',
-				            progress + '%'
-				        );
-				        $('#progress .bar').html(progress + '%');
-				    },
-				    error: function (e, data) {
-				    	alert(JSON.parse(e.responseText).error);
-				    }
-				});	
-			
-				
-			});
-		</script>
+		<!-- App -->
+		<script src="app.js"></script>
+		<!-- <script src="appSpec.js"></script> -->
 		
 	</body>
 
