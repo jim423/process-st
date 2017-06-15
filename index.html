@@ -37,11 +37,35 @@
 			<div class="row row-content">
 				<div class="col-sm-3">
 				</div>
-				<div class="col-sm-6" ng-show="showVideo">
-					<span class="wistia_embed popover=true popoverAnimateThumbnail=true">&nbsp;</span>
+				<div class="col-sm-6" ng-show="count >= 1">
+					<span class="video_1 wistia_embed popover=true popoverAnimateThumbnail=true">&nbsp;</span>
 				</div>
-				<div class="video-none col-sm-6" ng-show="!showVideo">
-					<h1>Uploaded Video</h1>
+				<div class="video-none col-sm-6" ng-show="count < 1">
+					<h1>First Uploaded Video</h1>
+				</div>
+				<div class="col-sm-3">
+				</div>
+			</div>
+			<div class="row row-content">
+				<div class="col-sm-3">
+				</div>
+				<div class="col-sm-6" ng-show="count >= 2">
+					<span class="video_2 wistia_embed popover=true popoverAnimateThumbnail=true">&nbsp;</span>
+				</div>
+				<div class="video-none col-sm-6" ng-show="count < 2">
+					<h1>Second Uploaded Video</h1>
+				</div>
+				<div class="col-sm-3">
+				</div>
+			</div>
+			<div class="row row-content">
+				<div class="col-sm-3">
+				</div>
+				<div class="col-sm-6" ng-show="count >= 3">
+					<span class="video_3 wistia_embed popover=true popoverAnimateThumbnail=true">&nbsp;</span>
+				</div>
+				<div class="video-none col-sm-6" ng-show="count < 3">
+					<h1>Third Uploaded Video</h1>
 				</div>
 				<div class="col-sm-3">
 				</div>
